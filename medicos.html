@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Médicos Disponíveis - Sistema de Saúde</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styleRem.css">
+</head>
+
+<body>
+    <!-- Overlay para fechar menu no mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="d-flex flex-column flex-shrink-0 p-3 h-100">
+            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <img src="img/69d6a5f4-d1b9-46db-9b8e-775865f8964f.png" alt="Logo" height="50" class="me-2">
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="agendamento2.html" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Agendar Consulta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="consulta.html" class="nav-link">
+                        <i class="fas fa-pills"></i>
+                        <span>Medicamentos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-history"></i>
+                        <span>Histórico</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medicos.html" class="nav-link active">
+                        <i class="fas fa-user-md"></i>
+                        <span>Médicos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="img/transferir.jpg" alt="User" width="32" height="32" class="rounded-circle me-2">
+                    <strong>Paciente</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                    <li><a class="dropdown-item" href="#">Configurações</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+
+        <!-- Cabeçalho -->
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+            <div class="container">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Seção Hero -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h1 class="display-5 fw-bold mb-4">Conheça nossos médicos</h1>
+                        <p class="lead mb-4">Profissionais qualificados e especializados para cuidar da sua saúde com
+                            excelência e dedicação.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Pesquisa -->
+        <section class="search-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="filter-card">
+                            <h3 class="filter-title">Pesquisar Médicos</h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="medico-pesquisa" class="form-label">Nome do Médico</label>
+                                    <input type="text" class="form-control" id="medico-pesquisa"
+                                        placeholder="Digite o nome do médico...">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="especialidade-filtro" class="form-label">Especialidade</label>
+                                    <select class="form-select" id="especialidade-filtro">
+                                        <option value="" selected>Todas as especialidades</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <button class="btn btn-outline-primary-custom" id="btn-limpar-filtros">
+                                    <i class="fas fa-times me-2"></i>Limpar Filtros
+                                </button>
+
+                                <button class="btn btn-amarelo" id="btn-aplicar-filtros">
+                                    <i class="fas fa-filter me-2"></i>Aplicar Filtros
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estatísticas -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="stats-card">
+                            <div class="stats-value" id="total-medicos">0</div>
+                            <div class="stats-label">Médicos Disponíveis</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="stats-card">
+                            <div class="stats-value" id="total-especialidades">0</div>
+                            <div class="stats-label">Especialidades</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="stats-card">
+                            <div class="stats-value" id="medicos-encontrados">0</div>
+                            <div class="stats-label">Resultados da Busca</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resultados -->
+        <section class="results-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="results-container">
+                            <h2 class="results-title">Médicos Disponíveis</h2>
+
+                            <div id="resultados-medicos"></div>
+
+                            <div class="empty-state" id="empty-state" style="display: none;">
+                                <i class="fas fa-user-md"></i>
+                                <h4>Nenhum médico encontrado</h4>
+                                <p>Tente ajustar os filtros para melhorar sua busca.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rodapé -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-md-start text-center mb-3 mb-md-0">
+                        <p class="mb-1">&copy; 2025 Saúde Primeiro. Desenvolvido por Paulo J.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end text-center">
+                        <a href="#" class="me-3">Política de Privacidade</a>
+                        <a href="#">Contato</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="api.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+
+            // ==================== VERIFICAÇÃO DE AUTENTICAÇÃO ====================
+            if (!api.isAuthenticated()) {
+                console.warn('⚠️ Usuário não autenticado. Redirecionando...');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            console.log('✅ Usuário autenticado:', api.getUser());
+
+            // ==================== VARIÁVEIS GLOBAIS ====================
+            let todosMedicos = [];
+            let medicosFiltrados = [];
+
+            // ==================== ELEMENTOS DO DOM ====================
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const medicoPesquisa = document.getElementById('medico-pesquisa');
+            const especialidadeFiltro = document.getElementById('especialidade-filtro');
+            const btnAplicarFiltros = document.getElementById('btn-aplicar-filtros');
+            const btnLimparFiltros = document.getElementById('btn-limpar-filtros');
+            const resultadosMedicos = document.getElementById('resultados-medicos');
+            const emptyState = document.getElementById('empty-state');
+
+            // ==================== MENU LATERAL ====================
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function () {
+                    sidebar.classList.toggle('active');
+                    sidebarOverlay.classList.toggle('active');
+                });
+            }
+
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', function () {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                });
+            }
+
+            // ==================== FUNÇÕES PRINCIPAIS ====================
+
+            // Função para obter os dias da semana em texto
+            function getDiaSemanaTexto(dia) {
+                const dias = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+                return dias[dia] || '';
+            }
+
+            // Função para renderizar médicos
+            function renderMedicos(medicos) {
+                resultadosMedicos.innerHTML = '';
+
+                if (!medicos || medicos.length === 0) {
+                    emptyState.style.display = 'block';
+                    document.getElementById('medicos-encontrados').textContent = '0';
+                    return;
+                }
+
+                emptyState.style.display = 'none';
+
+                medicos.forEach(medico => {
+                    const nomeMedico = medico.usuario?.nome || 'Nome não disponível';
+                    const emailMedico = medico.usuario?.email || '';
+                    const telefoneMedico = medico.usuario?.telefone || 'Não informado';
+                    const especialidade = medico.especialidade || 'Não especificada';
+                    const crm = medico.crm || 'CRM não informado';
+
+                    // Processar disponibilidade
+                    let disponibilidadeHTML = '<p class="text-muted small">Horários não informados</p>';
+
+                    if (medico.disponibilidade && medico.disponibilidade.length > 0) {
+                        disponibilidadeHTML = '<div class="disponibilidade-info">';
+
+                        medico.disponibilidade.forEach(disp => {
+                            const diaSemana = getDiaSemanaTexto(disp.diaSemana);
+                            const horarios = disp.horarios && disp.horarios.length > 0
+                                ? disp.horarios.join(', ')
+                                : 'Horários não definidos';
+
+                            disponibilidadeHTML += `
+                                <div class="dia-disponibilidade">
+                                    <strong>${diaSemana}:</strong> ${horarios}
+                                </div>
+                            `;
+                        });
+
+                        disponibilidadeHTML += '</div>';
+                    }
+
+                    const card = document.createElement('div');
+                    card.className = 'medicamento-card disponivel'; // Reutilizando estilos
+
+                    card.innerHTML = `
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <div class="medicamento-nome">${nomeMedico}</div>
+                                <div class="medicamento-tipo">${especialidade}</div>
+                                <div class="text-muted small mt-1">${crm}</div>
+                            </div>
+                            <div class="medicamento-status status-disponivel">
+                                Disponível
+                            </div>
+                        </div>
+
+                        <div class="medicamento-info mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-envelope text-primary me-2"></i>
+                                <span>${emailMedico}</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-phone text-primary me-2"></i>
+                                <span>${telefoneMedico}</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <h6 class="mb-2"><i class="fas fa-calendar-alt me-2"></i>Disponibilidade:</h6>
+                            ${disponibilidadeHTML}
+                        </div>
+
+                        <div class="medicamento-acoes">
+                            <button class="btn btn-amarelo btn-sm w-100" onclick="agendarConsultaComMedico('${medico._id}', '${especialidade}')">
+                                <i class="fas fa-calendar-check me-1"></i> Agendar Consulta
+                            </button>
+                        </div>
+                    `;
+
+                    resultadosMedicos.appendChild(card);
+                });
+
+                // Atualizar contador de resultados
+                document.getElementById('medicos-encontrados').textContent = medicos.length;
+            }
+
+            // Função para filtrar médicos
+            function filtrarMedicos() {
+                const nomeBusca = medicoPesquisa.value.toLowerCase().trim();
+                const especialidadeBusca = especialidadeFiltro.value.toLowerCase();
+
+                medicosFiltrados = todosMedicos.filter(medico => {
+                    const nomeMedico = medico.usuario?.nome?.toLowerCase() || '';
+                    const especialidadeMedico = medico.especialidade?.toLowerCase() || '';
+
+                    const matchNome = !nomeBusca || nomeMedico.includes(nomeBusca);
+                    const matchEspecialidade = !especialidadeBusca || especialidadeMedico === especialidadeBusca;
+
+                    return matchNome && matchEspecialidade;
+                });
+
+                console.log('🔍 Médicos filtrados:', medicosFiltrados.length);
+                renderMedicos(medicosFiltrados);
+            }
+
+            // Função para atualizar estatísticas
+            function atualizarEstatisticas() {
+                document.getElementById('total-medicos').textContent = todosMedicos.length;
+
+                const especialidadesUnicas = new Set(
+                    todosMedicos.map(m => m.especialidade).filter(Boolean)
+                );
+                document.getElementById('total-especialidades').textContent = especialidadesUnicas.size;
+
+                document.getElementById('medicos-encontrados').textContent = medicosFiltrados.length;
+            }
+
+            // ==================== CARREGAR DADOS INICIAIS ====================
+            try {
+                console.log('🔄 Carregando médicos da API...');
+                todosMedicos = await api.listarMedicos();
+                medicosFiltrados = [...todosMedicos];
+
+                console.log('✅ Médicos carregados:', todosMedicos.length);
+
+                // Extrair especialidades únicas para o filtro
+                const especialidades = [...new Set(todosMedicos.map(m => m.especialidade))].filter(Boolean);
+
+                especialidades.forEach(esp => {
+                    const option = document.createElement('option');
+                    option.value = esp.toLowerCase();
+                    option.textContent = esp;
+                    especialidadeFiltro.appendChild(option);
+                });
+
+                // Renderizar todos os médicos inicialmente
+                renderMedicos(medicosFiltrados);
+                atualizarEstatisticas();
+
+            } catch (error) {
+                console.error('❌ Erro ao carregar médicos:', error);
+                alert('Erro ao carregar lista de médicos: ' + error.message);
+            }
+
+            // ==================== EVENTOS ====================
+
+            // Aplicar filtros
+            btnAplicarFiltros.addEventListener('click', function () {
+                console.log('🔍 Aplicando filtros...');
+                filtrarMedicos();
+                atualizarEstatisticas();
+            });
+
+            // Limpar filtros
+            btnLimparFiltros.addEventListener('click', function () {
+                console.log('🗑️ Limpando filtros...');
+                medicoPesquisa.value = '';
+                especialidadeFiltro.value = '';
+                medicosFiltrados = [...todosMedicos];
+                renderMedicos(medicosFiltrados);
+                atualizarEstatisticas();
+            });
+
+            // Filtrar ao digitar (opcional - tempo real)
+            medicoPesquisa.addEventListener('input', function () {
+                filtrarMedicos();
+                atualizarEstatisticas();
+            });
+
+            // Filtrar ao mudar especialidade
+            especialidadeFiltro.addEventListener('change', function () {
+                filtrarMedicos();
+                atualizarEstatisticas();
+            });
+
+            console.log('✅ Página de médicos carregada com sucesso');
+        });
+
+        // ==================== FUNÇÕES GLOBAIS ====================
+
+        // Função para agendar consulta (redireciona para página de agendamento)
+        function agendarConsultaComMedico(medicoId, especialidade) {
+            console.log('📅 Redirecionando para agendamento com médico:', medicoId);
+            // Redireciona para a página de agendamento com parâmetros
+            window.location.href = `agendamento2.html?medicoId=${medicoId}&especialidade=${encodeURIComponent(especialidade)}`;
+        }
+    </script>
+
+    <style>
+        /* Estilos adicionais específicos para disponibilidade */
+        .disponibilidade-info {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 8px;
+        }
+
+        .dia-disponibilidade {
+            padding: 6px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+
+        .dia-disponibilidade:last-child {
+            border-bottom: none;
+        }
+
+        .dia-disponibilidade strong {
+            color: #2c3e50;
+            display: inline-block;
+            min-width: 80px;
+        }
+    </style>
+
+</body>
+
+</html>

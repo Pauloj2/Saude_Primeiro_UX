@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard - Sistema de Saúde</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styleDas.css">
+
+</head>
+
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <h4>Carregando Dashboard...</h4>
+        <p id="loadingMessage">Verificando autenticação...</p>
+    </div>
+
+    <!-- Page Content (Hidden until loaded) -->
+    <div class="page-content" id="pageContent">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="d-flex flex-column flex-shrink-0 p-3 h-100">
+                <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <i class="fas fa-heartbeat fa-3x me-2"></i>
+                    <span class="fs-4">Saúde Primeiro</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link active">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="agendamento2.html" class="nav-link">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Agendar Consulta</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="consulta.html" class="nav-link">
+                            <i class="fas fa-pills"></i>
+                            <span>Medicamentos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="medicos.html" class="nav-link">
+                            <i class="fas fa-user-md"></i>
+                            <span>Médicos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle fa-2x me-2"></i>
+                        <strong id="sidebarUserName">Usuário</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Perfil</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Configurações</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn"><i
+                                    class="fas fa-sign-out-alt me-2"></i>Sair</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="d-flex align-items-center">
+                    <h4 class="mb-0">Dashboard</h4>
+                </div>
+                <div class="user-info">
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                            data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle fa-2x me-2 text-primary"></i>
+                            <div class="d-none d-md-block">
+                                <div class="fw-bold" id="topbarUserName">Usuário</div>
+                                <small class="text-muted" id="topbarUserType">Paciente</small>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Perfil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Configurações</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn2"><i
+                                        class="fas fa-sign-out-alt me-2"></i>Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row">
+                <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="dashboard-card stat-card">
+                        <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">Consultas Agendadas</div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="dashboard-card stat-card">
+                        <div class="card-icon"><i class="fas fa-pills"></i></div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Medicamentos Disponíveis</div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="dashboard-card stat-card">
+                        <div class="card-icon"><i class="fas fa-file-medical"></i></div>
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">Consultas Realizadas</div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-3">
+                    <div class="dashboard-card stat-card">
+                        <div class="card-icon"><i class="fas fa-user-md"></i></div>
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Médicos Disponíveis</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tables -->
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="dashboard-card">
+                        <h5 class="mb-3">Próximas Consultas</h5>
+                        <div class="table-responsive">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Médico</th>
+                                        <th>Especialidade</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>15/05/2025 - 10:00</td>
+                                        <td>Dr. Carlos Silva</td>
+                                        <td>Cardiologia</td>
+                                        <td><span class="badge-confirmed">Confirmada</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>18/05/2025 - 14:30</td>
+                                        <td>Dra. Ana Costa</td>
+                                        <td>Dermatologia</td>
+                                        <td><span class="badge-pending">Pendente</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <div class="dashboard-card">
+                        <h5 class="mb-3">Medicamentos Disponíveis</h5>
+                        <div class="table-responsive">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Medicamento</th>
+                                        <th>Posto</th>
+                                        <th>Status</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Paracetamol 500mg</td>
+                                        <td>Posto Central</td>
+                                        <td>Disponível</td>
+                                        <td><button class="btn btn-sm btn-secondary-custom">Solicitar</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Amoxicilina 250mg</td>
+                                        <td>Posto Norte</td>
+                                        <td>Disponível</td>
+                                        <td><button class="btn btn-sm btn-secondary-custom">Solicitar</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="api.js"></script>
+    <script>
+        function initDashboard() {
+            console.log('🚀 Iniciando Dashboard...');
+
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const pageContent = document.getElementById('pageContent');
+            const loadingMessage = document.getElementById('loadingMessage');
+
+            // PASSO 1: Verificar se API carregou
+            if (typeof api === 'undefined') {
+                console.error('❌ API não carregada!');
+                loadingMessage.textContent = 'Erro: API não carregada';
+                setTimeout(() => window.location.href = 'login.html', 1500);
+                return;
+            }
+
+            // PASSO 2: Verificar autenticação imediata (localStorage é instantâneo)
+            const isAuth = api.isAuthenticated();
+            console.log("🔐 Autenticado:", isAuth);
+
+            if (!isAuth) {
+                loadingMessage.textContent = "Não autenticado. Redirecionando...";
+                setTimeout(() => window.location.href = "login.html", 700);
+                return;
+            }
+
+            // PASSO 3: Carregar dados do usuário
+            const user = api.getUser();
+            console.log("👤 Usuário carregado:", user);
+
+            if (!user) {
+                console.warn("❌ Token existe, mas usuário não existe no storage. Limpando e redirecionando...");
+                api.logout();
+                return;
+            }
+
+            // Preencher dados na tela
+            document.getElementById("sidebarUserName").textContent = user.nome || "Usuário";
+            document.getElementById("topbarUserName").textContent = user.nome || "Usuário";
+            document.getElementById("topbarUserType").textContent = user.tipo || "Paciente";
+
+            // PASSO 4: Exibir conteúdo
+            setTimeout(() => {
+                loadingOverlay.classList.add("hidden");
+                pageContent.classList.add("loaded");
+                console.log("📊 Dashboard carregado.");
+            }, 300);
+        }
+
+        function setupLogout() {
+            const logoutButtons = [
+                document.getElementById("logoutBtn"),
+                document.getElementById("logoutBtn2"),
+            ];
+
+            logoutButtons.forEach((btn) => {
+                if (btn) {
+                    btn.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        if (confirm("Deseja realmente sair?")) {
+                            api.logout();
+                        }
+                    });
+                }
+            });
+        }
+
+        // Quando o DOM carregar
+        document.addEventListener("DOMContentLoaded", () => {
+            initDashboard();
+            setupLogout();
+        });
+    </script>
+
+</body>
+
+</html>

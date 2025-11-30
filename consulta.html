@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Consulta de Medicamentos - Sistema de Saúde</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styleRem.css">
+</head>
+
+<body>
+    <!-- Overlay para fechar menu no mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="d-flex flex-column flex-shrink-0 p-3 h-100">
+            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <img src="img/69d6a5f4-d1b9-46db-9b8e-775865f8964f.png" alt="Logo" height="50" class="me-2">
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="agendamento2.html" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Agendar Consulta</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="consulta.html" class="nav-link active">
+                        <i class="fas fa-pills"></i>
+                        <span>Medicamentos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medicos.html" class="nav-link">
+                        <i class="fas fa-user-md"></i>
+                        <span>Médicos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="img/transferir.jpg" alt="User" width="32" height="32" class="rounded-circle me-2">
+                    <strong>Paciente</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                    <li><a class="dropdown-item" href="#">Configurações</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+
+        <!-- Cabeçalho -->
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+            <div class="container">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Seção Hero -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h1 class="display-5 fw-bold mb-4">Encontre medicamentos disponíveis perto de você</h1>
+                        <p class="lead mb-4">Consulte a disponibilidade de remédios nos postos de saúde da sua região de
+                            forma rápida e prática.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Pesquisa -->
+        <section class="search-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="filter-card">
+                            <h3 class="filter-title">Pesquisar Medicamentos</h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="medicamento-pesquisa" class="form-label">Nome do Medicamento</label>
+                                    <input type="text" class="form-control" id="medicamento-pesquisa"
+                                        placeholder="Digite o nome do medicamento...">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="localizacao" class="form-label">Localização</label>
+                                    <select class="form-select" id="localizacao">
+                                        <option value="" selected>Todos os bairros</option>
+                                        <option value="centro">Centro</option>
+                                        <option value="norte">Zona Norte</option>
+                                        <option value="sul">Zona Sul</option>
+                                        <option value="leste">Zona Leste</option>
+                                        <option value="oeste">Zona Oeste</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="tipo-medicamento" class="form-label">Tipo de Medicamento</label>
+                                    <select class="form-select" id="tipo-medicamento">
+                                        <option value="" selected>Todos os tipos</option>
+                                        <option value="uso-continuo">Uso Contínuo</option>
+                                        <option value="emergencial">Emergencial</option>
+                                        <option value="controlado">Controlado</option>
+                                        <option value="generico">Genérico</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="status-disponibilidade" class="form-label">Status</label>
+                                    <select class="form-select" id="status-disponibilidade">
+                                        <option value="" selected>Todos</option>
+                                        <option value="disponivel">Disponível</option>
+                                        <option value="baixa">Baixa Quantidade</option>
+                                        <option value="esgotado">Esgotado</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <button class="btn btn-outline-primary-custom" id="btn-limpar-filtros">
+                                    <i class="fas fa-times me-2"></i>Limpar Filtros
+                                </button>
+
+                                <button class="btn btn-amarelo" id="btn-aplicar-filtros">
+                                    <i class="fas fa-filter me-2"></i>Aplicar Filtros
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estatísticas -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="stats-card">
+                            <div class="stats-value" id="total-medicamentos">0</div>
+                            <div class="stats-label">Medicamentos Encontrados</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="stats-card">
+                            <div class="stats-value" id="postos-encontrados">0</div>
+                            <div class="stats-label">Postos de Saúde</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="stats-card">
+                            <div class="stats-value" id="disponiveis">0</div>
+                            <div class="stats-label">Disponíveis</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="stats-card">
+                            <div class="stats-value" id="esgotados">0</div>
+                            <div class="stats-label">Esgotados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resultados -->
+        <section class="results-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="results-container">
+                            <h2 class="results-title">Resultados da Pesquisa</h2>
+
+                            <div id="resultados-medicamentos"></div>
+
+                            <div class="empty-state" id="empty-state" style="display: none;">
+                                <i class="fas fa-search"></i>
+                                <h4>Nenhum medicamento encontrado</h4>
+                                <p>Tente ajustar os filtros para melhorar sua busca.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rodapé -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-md-start text-center mb-3 mb-md-0">
+                        <p class="mb-1">&copy; 2025 Saúde Primeiro. Desenvolvido por Paulo J.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end text-center">
+                        <a href="#" class="me-3">Política de Privacidade</a>
+                        <a href="#">Contato</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="api.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+
+            if (!api.isAuthenticated()) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Carregar postos de saúde
+            try {
+                const postos = await api.listarPostos();
+                const selectLocalizacao = document.getElementById('localizacao');
+
+                postos.forEach(posto => {
+                    const option = document.createElement('option');
+                    option.value = posto._id;
+                    option.textContent = posto.bairro;
+                    selectLocalizacao.appendChild(option);
+                });
+
+            } catch (error) {
+                console.error('Erro ao carregar postos:', error);
+            }
+
+            async function buscarMedicamentos() {
+                const filtros = {
+                    nome: document.getElementById('medicamento-pesquisa').value,
+                    tipo: document.getElementById('tipo-medicamento').value,
+                    status: document.getElementById('status-disponibilidade').value,
+                    postoId: document.getElementById('localizacao').value
+                };
+
+                // Remover filtros vazios
+                Object.keys(filtros).forEach(k => {
+                    if (!filtros[k]) delete filtros[k];
+                });
+
+                try {
+                    const medicamentos = await api.listarMedicamentos(filtros);
+                    renderMedicamentos(medicamentos);
+                } catch (error) {
+                    alert('Erro ao buscar medicamentos: ' + error.message);
+                    console.error(error);
+                }
+            }
+
+            function renderMedicamentos(medicamentos) {
+
+                const container = document.getElementById('resultados-medicamentos');
+                const empty = document.getElementById('empty-state');
+
+                container.innerHTML = '';
+
+                if (medicamentos.length === 0) {
+                    empty.style.display = 'block';
+                    return;
+                }
+
+                empty.style.display = 'none';
+
+                medicamentos.forEach(m => {
+
+                    let statusClass = m.status === 'esgotado' ? 'esgotado'
+                        : m.status === 'baixa' ? 'baixa-quantidade'
+                            : 'disponivel';
+
+                    let quantidadeText =
+                        m.status === 'esgotado'
+                            ? 'Indisponível'
+                            : `${m.quantidade} unidades`;
+
+                    const card = document.createElement('div');
+                    card.className = `medicamento-card ${statusClass}`;
+
+                    card.innerHTML = `
+                        <div class="medicamento-nome">${m.nome}</div>
+                        <div class="medicamento-tipo">${m.tipo}</div>
+                        <div class="medicamento-info">
+                            <div class="medicamento-quantidade">${quantidadeText}</div>
+                            <div class="medicamento-status status-${m.status}">
+                                ${m.status === 'disponivel' ? 'Disponível' :
+                            m.status === 'baixa' ? 'Baixa Quantidade' : 'Esgotado'}
+                            </div>
+                        </div>
+
+                        <div class="posto-info">
+                            <div class="posto-nome">${m.postoSaude?.nome || 'Posto'}</div>
+                            <div class="posto-endereco">${m.postoSaude?.endereco || 'Endereço não informado'}</div>
+                            <div class="posto-distancia">${m.postoSaude?.bairro || ''}</div>
+                        </div>
+
+                        <div class="medicamento-acoes">
+                            <button class="btn btn-outline-primary-custom btn-sm"
+                                onclick="verDetalhesPosto('${m.postoSaude?._id}')">
+                                <i class="fas fa-map-marker-alt me-1"></i> Ver no Mapa
+                            </button>
+
+                            ${m.status !== 'esgotado'
+                            ? `<button class="btn btn-outline-secondary-custom btn-sm"
+                                onclick="solicitarMedicamento('${m._id}', '${m.postoSaude?._id}')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Solicitar
+                              </button>`
+                            : `<button class="btn btn-outline-secondary-custom btn-sm"
+                                onclick="solicitarNotificacao('${m._id}')">
+                                    <i class="fas fa-bell me-1"></i> Notificar
+                              </button>`}
+                        </div>
+                    `;
+
+                    container.appendChild(card);
+                });
+
+                atualizarEstatisticas(medicamentos);
+            }
+
+            function atualizarEstatisticas(medicamentos) {
+
+                document.getElementById('total-medicamentos').textContent = medicamentos.length;
+
+                const postosUnicos = new Set(
+                    medicamentos.map(m => m.postoSaude?._id).filter(Boolean)
+                );
+
+                document.getElementById('postos-encontrados').textContent = postosUnicos.size;
+
+                document.getElementById('disponiveis').textContent =
+                    medicamentos.filter(m => m.status === 'disponivel').length;
+
+                document.getElementById('esgotados').textContent =
+                    medicamentos.filter(m => m.status === 'esgotado').length;
+            }
+
+            // Eventos
+            document.getElementById('btn-aplicar-filtros').addEventListener('click', buscarMedicamentos);
+
+            document.getElementById('btn-limpar-filtros').addEventListener('click', () => {
+                document.getElementById('medicamento-pesquisa').value = '';
+                document.getElementById('localizacao').value = '';
+                document.getElementById('tipo-medicamento').value = '';
+                document.getElementById('status-disponibilidade').value = '';
+                buscarMedicamentos();
+            });
+
+            buscarMedicamentos();
+        });
+
+        // Funções globais
+        async function solicitarMedicamento(medicamentoId, postoId) {
+            try {
+                await api.solicitarMedicamento(medicamentoId, postoId);
+                alert('Medicamento solicitado com sucesso!');
+            } catch (error) {
+                alert('Erro ao solicitar medicamento: ' + error.message);
+            }
+        }
+
+        function verDetalhesPosto(postoId) {
+            alert('Em breve: integração com mapa.');
+        }
+
+        function solicitarNotificacao(medicamentoId) {
+            alert('Você será notificado quando estiver disponível.');
+        }
+    </script>
+
+</body>
+
+</html>
